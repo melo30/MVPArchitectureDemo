@@ -1,0 +1,19 @@
+//
+//  PrefixHeader.pch
+//  MVPDemo
+//
+//  Created by melo on 2018/12/25.
+//  Copyright © 2018 陈诚. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+#import <Masonry.h>
+#import <YYKit.h>
+
+#define Screen_Width [UIScreen mainScreen].bounds.size.width
+#define Screen_Height [UIScreen mainScreen].bounds.size.height
+
+#endif /* PrefixHeader_pch */
