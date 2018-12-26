@@ -10,10 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 typedef void (^CellConfigureBefore)(id cell, id model, NSIndexPath * indexPath);
+typedef void(^selectCell)(NSIndexPath *indexPath);
 @interface MeloDataSource : NSObject <UITableViewDelegate, UITableViewDataSource>
 
 //全能初始化方法
-- (instancetype)initWithIdentifier:(NSString *)identifier configureBlock:(CellConfigureBefore)before;
+- (instancetype)initWithIdentifier:(NSString *)identifier configureBlock:(CellConfigureBefore)before selectBlock:(selectCell)selectBlock;
 
 // 接收外界传过来的数据的全局操作变量
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -21,6 +22,7 @@ typedef void (^CellConfigureBefore)(id cell, id model, NSIndexPath * indexPath);
 // 提供一个对外的入口，用来接收Presenter 传过来的数据，展示在tableView上面
 - (void)addDataArray:(NSArray *)datas;
 
+- (id)modelsAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END

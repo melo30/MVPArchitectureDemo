@@ -11,7 +11,7 @@
 #import "Model.h"
 #import "MeloDataSource.h"
 #import "Presenter.h"
-@interface MVPViewController ()
+@interface MVPViewController () <PresentDelegate>
 
 /** 用来存放处理tableView的代理方法，给Controller瘦身 */
 @property (nonatomic, strong) MeloDataSource *dataSouce;
@@ -30,9 +30,14 @@
     //1.初始化最关键的Presenter,数据的来源就在它里面,是为后面各种类提供操作的根源
     self.presenter = [[Presenter alloc] init];
     
+    __weak typeof(self)weakSelf = self;
     self.dataSouce = [[MeloDataSource alloc] initWithIdentifier:NSStringFromClass([MVPTableViewCell class]) configureBlock:^(MVPTableViewCell *  _Nonnull cell, Model *  _Nonnull model, NSIndexPath * _Nonnull indexPath) {
         cell.nameLabel.text = model.name;
         cell.numLabel.text  = model.num;
+        cell.indexPath = indexPath; // 比如:这里得indexPath,相当于是通过MeloDataSource从tableViewCell代理方法里面传过来，这里又传进View中去
+        cell.delegate = weakSelf.presenter;// 让Presenter作为View的代理，因为Presenter中存放的数据，这样就能实现View改变通知Model改变啦~
+    } selectBlock:^(NSIndexPath * _Nonnull indexPath) {
+        NSLog(@"你当前点击了%ld行的cell",indexPath.row);
     }];
     //2.将presenter中的数据传递到MeloDataSource 中去展示
     [self.dataSouce addDataArray:self.presenter.dataArray];
@@ -40,6 +45,12 @@
     [self.view addSubview:self.tableView];
     self.tableView.delegate = self.dataSouce;
     self.tableView.dataSource = self.dataSouce;
+}
+
+#pragma mark - PresentDelegate
+- (void)reloadDataForUI {
+    [self.dataSouce addDataArray:self.presenter.dataArray];
+    [self.tableView reloadData];
 }
 
 - (UITableView *)tableView {

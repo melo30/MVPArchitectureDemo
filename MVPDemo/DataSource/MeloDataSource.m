@@ -14,15 +14,17 @@
 
 @property (nonatomic, copy) CellConfigureBefore cellConfigureBefore;
 
+@property (nonatomic, copy) selectCell selectBlock;
+
 @end
 
 @implementation MeloDataSource
 
-- (id)initWithIdentifier:(NSString *)identifier configureBlock:(CellConfigureBefore)before {
+- (id)initWithIdentifier:(NSString *)identifier configureBlock:(CellConfigureBefore)before selectBlock:(selectCell)selectBlock {
     if(self = [super init]) {
         _cellIdentifier = identifier;
         _cellConfigureBefore = [before copy];
-//        _selectBlock = [selectBlock copy];
+        _selectBlock = [selectBlock copy];
     }
     return self;
 }
@@ -38,6 +40,11 @@
         self.cellConfigureBefore(cell, model,indexPath);
     }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    self.selectBlock(indexPath);
 }
 
 - (id)modelsAtIndexPath:(NSIndexPath *)indexPath {

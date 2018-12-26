@@ -64,7 +64,11 @@
 #pragma mark - Setter
 - (void)setNum:(NSInteger)num {
     _num = num;
+    self.numLabel.text = [NSString stringWithFormat:@"%ld",self.num];
     
+    if (_delegate && [_delegate respondsToSelector:@selector(didClickAddBtnWithNum:indexPath:)]) {
+        [_delegate didClickAddBtnWithNum:self.numLabel.text indexPath:self.indexPath];
+    }
 }
 
 #pragma mark - LazyLoad
@@ -83,7 +87,7 @@
 - (UILabel *)nameLabel{
     if (_nameLabel == nil) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.text = @"Ci";
+        _nameLabel.text = @"初始化";
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.font = [UIFont systemFontOfSize:20];
         _nameLabel.textColor = [UIColor cyanColor];

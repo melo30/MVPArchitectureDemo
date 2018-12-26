@@ -10,6 +10,8 @@
 #import "MVPViewController.h"
 @interface ViewController ()
 
+@property (nonatomic, strong) UIButton *goodByeDotaButton;
+
 @end
 
 @implementation ViewController
