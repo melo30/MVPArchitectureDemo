@@ -29,7 +29,7 @@
     
     //1.初始化最关键的Presenter,数据的来源就在它里面,是为后面各种类提供操作的根源
     self.presenter = [[Presenter alloc] init];
-    
+    self.presenter.delegate = self;
     __weak typeof(self)weakSelf = self;
     self.dataSouce = [[MeloDataSource alloc] initWithIdentifier:NSStringFromClass([MVPTableViewCell class]) configureBlock:^(MVPTableViewCell *  _Nonnull cell, Model *  _Nonnull model, NSIndexPath * _Nonnull indexPath) {
         cell.nameLabel.text = model.name;
