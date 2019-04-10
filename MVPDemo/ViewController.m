@@ -22,16 +22,20 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        MVPViewController *mvpVc = [[MVPViewController alloc] init];
-//        [self.navigationController pushViewController:mvpVc animated:YES];
-//    });
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        MVVMViewController *mvvmVc = [[MVVMViewController alloc] init];
-        [self.navigationController pushViewController:mvvmVc animated:YES];
-    });
+    _goodByeDotaButton = [UIButton new];
+    [_goodByeDotaButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_goodByeDotaButton setTitle:@"点我！" forState:UIControlStateNormal];
+    [self.view addSubview:_goodByeDotaButton];
+    _goodByeDotaButton.frame = CGRectMake(100, 100, 100, 100);
+    [_goodByeDotaButton addTarget:self action:@selector(buttonEventHandle:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)buttonEventHandle:(UIButton *)sender {
+    //        MVPViewController *mvpVc = [[MVPViewController alloc] init];
+    //        [self.navigationController pushViewController:mvpVc animated:YES];
+    
+        MVVMViewController *mvvmVc = [[MVVMViewController alloc] init];
+        [self.navigationController pushViewController:mvvmVc animated:YES];
+}
 
 @end
