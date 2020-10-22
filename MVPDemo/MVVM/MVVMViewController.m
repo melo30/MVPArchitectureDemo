@@ -26,15 +26,21 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"合计：" style:UIBarButtonItemStyleDone target:self action:nil];
+    
     __weak typeof(self)weakSelf = self;
     
-    self.dataSource = [[MeloDataSource alloc] initWithIdentifier:NSStringFromClass([MVPTableViewCell class]) configureBlock:^(MVPTableViewCell *  _Nonnull cell, Model *  _Nonnull model, NSIndexPath * _Nonnull indexPath) {
+    
+    self.dataSource = [[MeloDataSource alloc] initWithIdentifier:NSStringFromClass([MVPTableViewCell class]) configureBlock:^(MVPTableViewCell * _Nonnull cell, Model * _Nonnull model, NSIndexPath * _Nonnull indexPath) {
         cell.nameLabel.text = model.name;
         cell.numLabel.text  = model.num;
+        cell.num = [model.num integerValue];
         cell.indexPath      = indexPath;
         cell.delegate       = weakSelf.vm;
     } selectBlock:^(NSIndexPath * _Nonnull indexPath) {
         NSLog(@"点击了%ld行cell", (long)indexPath.row);
+    } reloadData:^(NSMutableArray * _Nonnull array) {
+        weakSelf.vm.dataArray = array;
     }];
     
     [self.view addSubview:self.tableView];
@@ -47,6 +53,7 @@
     [self.vm initWithBlock:^(id data) {
         weakSelf.dataSource.dataArray = [weakSelf.vm.dataArray mutableCopy];
         [weakSelf.tableView reloadData];
+        weakSelf.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"合计:%ld",weakSelf.vm.total];
     } failBlock:nil];
     
     //加载数据

@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 这里定义一个模拟数据的操作，根据需求定义，平时项目可以在本类中定义你的网络请求，得到数据，然后json转model的一系列操作...
 - (void)loadData;
 
+/// 计算总数
+- (NSInteger)total;
+
 @property (nonatomic, weak) id <PresentDelegate> delegate;
 
 @end

@@ -36,24 +36,15 @@
     dispatch_async(queue, ^{
         NSArray *temArray =
         @[
-          @{@"name":@"影魔",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"圣堂刺客",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"撼地神牛",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"风行者",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"虚空假面",@"imageUrl":@"http://CC ",@"num":@"9"},
-          @{@"name":@"风暴之灵",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"祈求着",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"火女",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"精灵龙",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"黑曜毁灭者",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"哈斯卡",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"变体精灵",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"混沌骑士",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"幻影刺客",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"隐形刺客",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"月之女祭司",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"暗夜魔王",@"imageUrl":@"http://CC",@"num":@"9"},
-          @{@"name":@"地穴编织者",@"imageUrl":@"http://CC ",@"num":@"9"}];
+              @{@"name":@"影魔",@"imageUrl":@"http://CC",@"num":@"1"},
+              @{@"name":@"圣堂刺客",@"imageUrl":@"http://CC",@"num":@"1"},
+              @{@"name":@"撼地神牛",@"imageUrl":@"http://CC",@"num":@"1"},
+              @{@"name":@"风行者",@"imageUrl":@"http://CC",@"num":@"1"},
+              @{@"name":@"虚空假面",@"imageUrl":@"http://CC ",@"num":@"1"},
+              @{@"name":@"风暴之灵",@"imageUrl":@"http://CC",@"num":@"1"},
+              @{@"name":@"祈求着",@"imageUrl":@"http://CC",@"num":@"1"},
+              @{@"name":@"火女",@"imageUrl":@"http://CC",@"num":@"1"}
+         ];
         
         [self.dataArray removeAllObjects];
         for (int i = 0; i < temArray.count; i ++) {
@@ -81,9 +72,15 @@
     if ([num intValue] > 6) {
         NSArray *temArray =
         @[
-          @{@"name":@"Gxq",@"imageUrl":@"http://Gxq",@"num":@"9"},
-          @{@"name":@"Gxq",@"imageUrl":@"http://Gxq",@"num":@"9"},
-          @{@"name":@"Gxq",@"imageUrl":@"http://Gxq",@"num":@"9"}];
+            @{@"name":@"影魔",@"imageUrl":@"http://CC",@"num":@"6"},
+            @{@"name":@"圣堂刺客",@"imageUrl":@"http://CC",@"num":@"6"},
+            @{@"name":@"撼地神牛",@"imageUrl":@"http://CC",@"num":@"6"},
+            @{@"name":@"风行者",@"imageUrl":@"http://CC",@"num":@"6"},
+            @{@"name":@"虚空假面",@"imageUrl":@"http://CC ",@"num":@"6"},
+            @{@"name":@"风暴之灵",@"imageUrl":@"http://CC",@"num":@"6"},
+            @{@"name":@"祈求着",@"imageUrl":@"http://CC",@"num":@"6"},
+            @{@"name":@"火女",@"imageUrl":@"http://CC",@"num":@"6"}
+        ];
         [self.dataArray removeAllObjects];
         for (int i = 0; i < temArray.count; i++) {
             Model *m = [Model modelWithDictionary:temArray[i]];
@@ -92,6 +89,15 @@
     }
     
     self.successBlock(self.dataArray);
+}
+
+- (NSInteger)total {
+    NSInteger total = 0;
+    for (Model *dic in self.dataArray) {
+        NSInteger num = [dic.num integerValue];
+        total += num;
+    }
+    return total;
 }
 
 - (NSMutableArray *)dataArray{

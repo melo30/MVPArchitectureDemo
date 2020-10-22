@@ -31,11 +31,16 @@
 }
 
 - (void)buttonEventHandle:(UIButton *)sender {
-    //        MVPViewController *mvpVc = [[MVPViewController alloc] init];
-    //        [self.navigationController pushViewController:mvpVc animated:YES];
+#if 1
+        MVPViewController *mvpVc = [[MVPViewController alloc] init];
+        [self.navigationController pushViewController:mvpVc animated:YES];
+#endif
+    
+#if 0
     
         MVVMViewController *mvvmVc = [[MVVMViewController alloc] init];
         [self.navigationController pushViewController:mvvmVc animated:YES];
+#endif
 }
 
 @end

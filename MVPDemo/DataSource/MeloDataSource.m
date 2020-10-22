@@ -12,19 +12,21 @@
 
 @property (nonatomic, copy) NSString *cellIdentifier;
 
-@property (nonatomic, copy) CellConfigureBefore cellConfigureBefore;
+@property (nonatomic, copy) CellConfigureBeforeBlock cellConfigureBefore;
 
-@property (nonatomic, copy) selectCell selectBlock;
+@property (nonatomic, copy) selectCellBlock selectBlock;
 
+@property (nonatomic, copy) reloadDataBlock reloadData;
 @end
 
 @implementation MeloDataSource
 
-- (id)initWithIdentifier:(NSString *)identifier configureBlock:(CellConfigureBefore)before selectBlock:(selectCell)selectBlock {
+- (id)initWithIdentifier:(NSString *)identifier configureBlock:(CellConfigureBeforeBlock)before selectBlock:(selectCellBlock)selectBlock reloadData:(reloadDataBlock)reloadData{
     if(self = [super init]) {
         _cellIdentifier = identifier;
         _cellConfigureBefore = [before copy];
         _selectBlock = [selectBlock copy];
+        _reloadData = [reloadData copy];
     }
     return self;
 }
@@ -47,13 +49,28 @@
     self.selectBlock(indexPath);
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self)weakSelf = self;
+    //添加一个删除按钮
+    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        //在这里添加事件
+        [weakSelf.dataArray removeObjectAtIndex:indexPath.row];
+        weakSelf.reloadData(weakSelf.dataArray);
+        NSLog(@"删除");
+    }];
+    return @[deleteRowAction];
+}
+
+#pragma mark - Custom
 - (id)modelsAtIndexPath:(NSIndexPath *)indexPath {
     return self.dataArray.count > indexPath.row ? self.dataArray[indexPath.row] : nil;
 }
 
-
-
-#pragma mark - Custom
 - (void)addDataArray:(NSArray *)datas {
     if(!datas) return;
     

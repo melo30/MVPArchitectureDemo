@@ -52,23 +52,29 @@
 #pragma mark - Action
 
 - (void)didClickSubBtn:(UIButton *)sender {
-    if ([self.numLabel.text intValue]<=0) {return;}
-    self.num--;
+    if ([self.numLabel.text intValue] <= 0) {return;}
+    self.num --;
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(didClickAddBtnWithNum:indexPath:)]) {
+        [_delegate didClickAddBtnWithNum:self.numLabel.text indexPath:self.indexPath];
+    }
 }
 
 - (void)didClickAddBtn:(UIButton *)sender {
-    if ([self.numLabel.text intValue]>=200) {return;}
-    self.num++;
+    if ([self.numLabel.text intValue] >= 200) {return;}
+    self.num ++;
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(didClickAddBtnWithNum:indexPath:)]) {
+        [_delegate didClickAddBtnWithNum:self.numLabel.text indexPath:self.indexPath];
+    }
 }
 
 #pragma mark - Setter
 - (void)setNum:(NSInteger)num {
     _num = num;
-    self.numLabel.text = [NSString stringWithFormat:@"%ld",self.num];
     
-    if (_delegate && [_delegate respondsToSelector:@selector(didClickAddBtnWithNum:indexPath:)]) {
-        [_delegate didClickAddBtnWithNum:self.numLabel.text indexPath:self.indexPath];
-    }
+    self.numLabel.text = [NSString stringWithFormat:@"%ld",(long)self.num];
+    
 }
 
 #pragma mark - LazyLoad
@@ -76,7 +82,7 @@
 - (UILabel *)numLabel{
     if (_numLabel == nil) {
         _numLabel = [[UILabel alloc] init];
-        _numLabel.text = @"0";
+        _numLabel.text = @"1";
         _numLabel.textAlignment = NSTextAlignmentCenter;
         _numLabel.font = [UIFont systemFontOfSize:20];
         _numLabel.textColor = [UIColor redColor];

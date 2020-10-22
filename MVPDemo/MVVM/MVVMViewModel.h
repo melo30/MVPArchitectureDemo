@@ -15,7 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
+///刷新数据
 - (void)loadData;
+
+/// 计算总数
+- (NSInteger)total;
 
 @end
 
