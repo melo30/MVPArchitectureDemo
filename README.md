@@ -31,7 +31,7 @@
   
   6.viewModel避免过于臃肿，否则重蹈Controller的覆辙，变得难以维护 (可以使用分类Category来为viewModel解压，MVP中的presenter同样可以如此)
   
-  7.MVVM 配合一个绑定机制效果最好（PS：ReactiveCocoa你值得拥有，也可以用KVO来实现，FaceBook开源的FBKVOController也不错）。
+  7.MVVM 配合一个绑定机制效果最好（PS：ReactiveCocoa很不错，不过学习曲线很陡，而且在公司项目开展起来也不容易；也可以用KVO来实现，FaceBook开源的FBKVOController封装了系统KVO，可以考虑）。
   
   `MVVM的优势`:
   
